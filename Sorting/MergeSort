@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void merge(int L[],int R[], int A[], int nl, int nr)
+{
+    int i=0,j=0,k=0;
+    while(i<nl&&j<nr)
+    {
+        if(L[i]<=R[j])
+        {
+            A[k++]=L[i++];
+        }
+        else
+        {
+            A[k++]=R[j++];
+        }
+    }
+    while(i<nl)
+    {
+        A[k++]=L[i++];
+    }
+        while(j<nr)
+    {
+        A[k++]=R[j++];
+    }
+
+}
+
+void mergesort(int A[],int n)
+{
+    if(n<2)
+    {
+        return;
+    }
+    else
+    {
+        int mid=n/2;
+        int L[mid]; int R[n-mid];
+        int i;
+        for(i=0;i<mid;i++)
+            L[i]=A[i];
+        for(i=mid;i<n;i++)
+            R[i-mid]=A[i];
+        mergesort(L,mid);
+        mergesort(R,n-mid);
+        merge(L,R,A, mid, n-mid);    
+    }
+}
+
+int main()
+{
+    int A[]={10,20,30,25,5,40,35};
+    int n=sizeof(A)/sizeof(A[0]);
+    mergesort(A,n);
+    for(int i=0;i<n;i++)
+        cout<<A[i]<<" ";
+}
